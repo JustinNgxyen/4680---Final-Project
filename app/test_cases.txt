@@ -1,0 +1,36 @@
+Type Conversion-------------------------------------------
+
+    Code:
+age = "20"
+ten_years_later = 10 + age
+print(f"In ten years you'll be {ten_years_later}")
+
+    Error:
+    TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+
+
+
+
+Indexes---------------------------------------------------
+
+    Code:
+numbers = [1, 2, 3]
+print(numbers[3])
+
+    Error:
+    IndexError: list index out of range
+
+
+
+
+
+Reserved keyword------------------------------------------
+
+    Code:
+items_deleted = 50
+del = 10
+items_deleted += del
+
+    Error:
+    SyntaxError: Invalid syntax

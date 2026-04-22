@@ -1,48 +1,27 @@
-from pydantic import BaseModel, Field
+from dataclasses import dataclass
+
+@dataclass
+class ErrorInput:
+    """What the student provides."""
+    error_message: str
+    code_snippet: str
+    language: str = "Python"
+
+    def validate(self) -> None:
+        if not self.error_message.strip():
+            raise ValueError("error_message cannot be empty.")
+        lines = self.code_snippet.strip().splitlines()
+        if len(lines) > 30:
+            raise ValueError(
+                f"code_snippet must be 30 lines or fewer (got {len(lines)}). "
+                "Trim the snippet to the section closest to the error."
+            )
 
 
-class IngestRequest(BaseModel):
-    doc_id: str = Field(..., min_length=1)
-    text: str = Field(..., min_length=1)
-
-
-class IngestResponse(BaseModel):
-    doc_id: str
-    chunks_added: int
-
-
-class ChunkRecord(BaseModel):
-    chunk_id: str
-    doc_id: str
-    chunk_index: int
-    text: str
-    embedding: list[float]
-
-
-class QARequest(BaseModel):
-    session_id: str = Field(..., min_length=1)
-    question: str = Field(..., min_length=1)
-    k: int = Field(4, ge=1, le=20)
-
-
-class Citation(BaseModel):
-    chunk_id: str
-    score: float
-
-class QAResponse(BaseModel):
-    answer: str
-    citations: list[Citation]
-    turn_count: int
-
-class AgentRequest(BaseModel):
-    session_id: str
-    query: str
-
-class Step(BaseModel):
-    action: str
-    input: str
-    output: str
-
-class AgentResponse(BaseModel):
-    answer: str
-    steps: list[Step]
+@dataclass
+class ErrorExplanation:
+    """What the agent returns to the student."""
+    plain_explanation: str   # jargon-free, 1-2 sentences
+    likely_cause: str        # single most probable root cause
+    debug_steps: list[str]   # 1-3 concrete fix steps
+    error_type: str          # e.g. "TypeError", "IndexError"

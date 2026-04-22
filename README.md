@@ -10,5 +10,5 @@ Program Error Explanation Agent.
 4. Type in .env `OPENAI_API_KEY=[Insert API key]` and add your API key
 5. change into /app with `cd app`
 6. activate venv with `source .venv/Scripts/activate`
-7. Install packages with `pip install openai python-dotenv`
-8. Run app with `python main.py`
+7. Install packages with `pip install openai python-dotenv streamlit`
+8. Run app with `streamlit run gui.py`

@@ -11,4 +11,4 @@ Program Error Explanation Agent.
 5. activate venv with `.venv\Scripts\activate` for cmd or `source .venv/Scripts/activate` for bash
 6. Install packages with `pip install openai python-dotenv streamlit`
 7. Run app with `streamlit run gui.py`
-
+ 
